@@ -21,7 +21,7 @@ export default function Controls({ ...rest }: Props) {
         min={0}
         max={maxSteps}
         step={1}
-        onCallback={setSteps}
+        onValueChange={setSteps}
         value={steps > maxSteps ? maxSteps : steps}
       />
       <div css={buttonGroupStyle}>

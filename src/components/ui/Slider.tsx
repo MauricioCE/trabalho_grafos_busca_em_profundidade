@@ -18,16 +18,12 @@ export default function Slider({
   onCallback,
 }: Props) {
   const [currentValue, setCurrentValue] = useState(value);
+  const [isGrabbing, setIsGrabbing] = useState(false);
   const handleRef = useRef<HTMLDivElement>(null);
   const railRef = useRef<HTMLDivElement>(null);
   const intervalRange = maxValue - minValue;
   const maxStep = Math.max(1, Math.ceil(intervalRange / step));
-
-  function getHandleX() {
-    if (!railRef.current) return 0;
-    const railWidth = railRef.current.getBoundingClientRect().width;
-    return (railWidth * currentValue) / intervalRange;
-  }
+  const handleDistPercent = (currentValue / maxValue) * 100;
 
   function handleSliderInteraction(posX: number) {
     if (railRef.current) {
@@ -65,13 +61,24 @@ export default function Slider({
   }
 
   useValueMonitor(value, setCurrentValue);
-  useSliderInteraction(railRef, handleRef, handleSliderInteraction, maxStep);
+  useSliderInteraction(
+    isGrabbing,
+    railRef,
+    handleRef,
+    setIsGrabbing,
+    handleSliderInteraction,
+    maxStep
+  );
 
   return (
     <div css={wrapperStyle}>
-      <div ref={railRef} css={railStyle} draggable="false"></div>
-      <div css={trackStyle} style={{ left: `${getHandleX()}` }}></div>
-      <div ref={handleRef} css={handlerStyle(getHandleX())} />
+      <div ref={railRef} css={railStyle}></div>
+      <div css={trackStyle} style={{ width: `${handleDistPercent}%` }}></div>
+      <div
+        ref={handleRef}
+        css={handlerStyle}
+        style={{ left: `${handleDistPercent}%` }}
+      />
     </div>
   );
 }
@@ -84,22 +91,26 @@ function useValueMonitor(
 ) {
   useEffect(() => {
     setCurrentValue(value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 }
 
 function useSliderInteraction(
+  isGrabbing: boolean,
   railRef: RefObject<HTMLDivElement | null>,
   handleRef: RefObject<HTMLDivElement | null>,
+  setIsGrabbing: (value: boolean) => void,
   handleSliderInteraction: (value: number) => void,
   maxStep: number
 ) {
-  const [isGrabbing, setIsGrabbing] = useState(false);
-
   useEffect(() => {
     const abortController = new AbortController();
 
     function handleMouseDown(event: MouseEvent) {
-      if (event.target === railRef.current) {
+      if (
+        event.target === railRef.current ||
+        event.target === handleRef.current
+      ) {
         event.preventDefault();
         enableUserSelection(false);
         setIsGrabbing(true);
@@ -137,7 +148,8 @@ function useSliderInteraction(
     return () => {
       abortController.abort();
     };
-  }, [railRef, handleRef, handleSliderInteraction, maxStep]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleSliderInteraction, maxStep]);
 }
 
 // STYLES =====================================================================================
@@ -161,7 +173,6 @@ const railStyle = css`
   position: absolute;
   width: 100%;
   height: 100%;
-  cursor: pointer;
   border: 1px solid #15e087;
   border-radius: 1000px;
   cursor: pointer;
@@ -176,17 +187,14 @@ const trackStyle = css`
   pointer-events: none;
 `;
 
-const handlerStyle = (pos: number) => css`
+const handlerStyle = css`
   position: absolute;
   width: 25px;
   height: 25px;
   border-radius: 100%;
   background-color: #ffffff;
   border: 2px solid #00041a;
-  cursor: grab;
-  left: ${pos}px;
   transform: translateX(-50%);
-  pointer-events: none;
 
   :hover,
   :active {

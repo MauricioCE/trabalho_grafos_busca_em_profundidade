@@ -55,8 +55,8 @@ export default function Map({ stage, ...rest }: Props) {
         <TilesLayer />
         <PathLayer />
         <TextLayer />
-        <Pacman coord={mapData.pacmanCoord} />
-        <Ghost coord={mapData.ghostCoord} />
+        <Pacman />
+        <Ghost />
       </svg>
     </div>
   );

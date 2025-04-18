@@ -1,6 +1,10 @@
-import { useGameStore } from "../stores/mainStore";
 import { Theme } from "./theme";
-import { Direction, MovementKeys, Vector2 } from "./types";
+import { Direction, Vector2 } from "./types";
+
+// Diz se o dispositivo do usuário é ou não mobile
+export function isMobile() {
+  return /Mobi|Android|iPhone/i.test(navigator.userAgent);
+}
 
 // Limita um valor entre um valor mínimo e um máximo
 export function clamp(value: number, min: number, max: number): number {
@@ -35,42 +39,4 @@ export function directionBetween(
   if (coord.x - targetCoord.x < 0) return "right";
   if (coord.y - targetCoord.y > 0) return "up";
   return "down";
-}
-// Dada uma teclada pressionada, as chaves que representam um movimento e sua coordenada atual,
-// retorna a próxima coordenada válida, ou seja, que não seja a mesma que um muro no mapa do jogo
-export function handleMovement(
-  pressedKey: string,
-  keys: MovementKeys,
-  currentCoord: Vector2
-) {
-  const map = useGameStore.getState().map;
-  let xIncrement = 0;
-  let yIncrement = 0;
-
-  switch (pressedKey) {
-    case keys.up:
-      yIncrement = -1;
-      break;
-    case keys.down:
-      yIncrement = 1;
-      break;
-    case keys.left:
-      xIncrement = -1;
-      break;
-    case keys.right:
-      xIncrement = 1;
-      break;
-  }
-
-  if (xIncrement === 0 && yIncrement === 0) return currentCoord;
-
-  const newX = currentCoord.x + xIncrement;
-  const newY = currentCoord.y + yIncrement;
-
-  if (newX >= 0 && newY >= 0 && newX < map.length && newY < map[0].length) {
-    if (map[newX][newY].type === "floor") {
-      return { x: newX, y: newY };
-    }
-  }
-  return currentCoord;
 }

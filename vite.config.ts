@@ -6,4 +6,8 @@ import { qrcode } from "vite-plugin-qrcode";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), svgr(), qrcode()],
+  base: "/trabalho_grafos_busca_em_profundidade/",
+  build: {
+    outDir: "docs",
+  },
 });

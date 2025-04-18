@@ -1,43 +1,29 @@
 import { css } from "@emotion/react";
+import { ReactNode } from "react";
 
 type Props = {
   className?: string;
-  icon?: React.ReactNode;
-  iconLocation?: "start" | "end";
-  iconGap?: string;
-  text?: string;
+  children?: ReactNode;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export default function Button({
-  icon,
-  iconLocation = "end",
-  iconGap = "0.2em",
-  text = "Button",
-  ...rest
-}: Props) {
+export default function Button({ children = "Button", ...rest }: Props) {
   return (
-    <button
-      css={wrapperStyle}
-      style={{
-        flexDirection: `${iconLocation === "end" ? "row-reverse" : "row"}`,
-        gap: `${iconGap}`,
-      }}
-      {...rest}
-    >
-      {icon} <span>{text}</span>
+    <button css={wrapperStyle} {...rest}>
+      {children}
     </button>
   );
 }
 
 const wrapperStyle = css`
   display: flex;
-
   justify-content: center;
   align-items: center;
-  background-color: #15e087;
-  color: white;
+  width: 100%;
+  height: 100%;
+  background-color: white;
   border-radius: 8px;
-  padding: 10px 10px;
+  border: none;
+  color: white;
   cursor: pointer;
   user-select: none;
 

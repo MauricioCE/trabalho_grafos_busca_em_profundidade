@@ -48,15 +48,18 @@ export default function Map({ stage, ...rest }: Props) {
       <svg
         width="100%"
         height="100%"
-        viewBox={`0 0 ${mapData.size.width} ${mapData.size.height}`}
+        viewBox={`0 0 ${mapData.size.width - Theme.map.tileGap} ${
+          mapData.size.height - Theme.map.tileGap
+        }`}
         preserveAspectRatio="xMidYMin meet"
       >
         <BFS />
+        <rect width="100%" height="100%" fill={Theme.tileColors.gapColor} />
         <TilesLayer />
         <PathLayer />
         <TextLayer />
-        <Pacman coord={mapData.pacmanCoord} />
-        <Ghost coord={mapData.ghostCoord} />
+        <Pacman />
+        <Ghost />
       </svg>
     </div>
   );

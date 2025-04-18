@@ -21,7 +21,7 @@ const style = css`
   justify-content: center;
   align-items: center;
   gap: 3px;
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 3vw, 0.9rem);
   font-weight: 600;
   font-family: "Roboto Mono";
 `;

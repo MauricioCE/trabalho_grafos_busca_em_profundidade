@@ -2,21 +2,7 @@
   font-family: "Inter", sans-serif;
   height: 100%;
   min-height: 100svh;
-}
-
-.root {
-  height: 100%;
-  min-height: 100svh;
-}
-
-body {
-  height: 100%;
-  min-height: 100svh;
-}
-
-html {
-  height: 100%;
-  min-height: 100svh;
+  background-color: #000;
 }
 
 * {

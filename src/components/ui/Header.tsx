@@ -2,27 +2,26 @@ import { css } from "@emotion/react";
 import { Theme } from "../../common/theme";
 
 type Props = {
+  className?: string;
   title: string;
 };
 
-export default function Header({ title }: Props) {
-  return <header css={headerStyle(Theme.map.maxMapWidth)}>{title}</header>;
+export default function Header({ className, title }: Props) {
+  return (
+    <header css={headerStyle} className={className}>
+      {title}
+    </header>
+  );
 }
 
-const headerStyle = (maxWidth: number) => css`
+const headerStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 100%;
-  /* max-width: ${maxWidth}px; */
-  padding: 10px;
-  font-size: 1.7rem;
-  background-color: #0c134f;
-  color: white;
-  border-radius: 10px;
-
-  @media screen and (max-width: 380px) {
-    font-size: 1.3rem;
-  }
+  padding: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: ${Theme.colors.primary};
+  color: ${Theme.colors.black_2};
 `;

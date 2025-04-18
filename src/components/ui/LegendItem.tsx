@@ -1,64 +1,71 @@
 import { css } from "@emotion/react";
+import { Theme } from "../../common/theme";
 
 type Props = {
   color: string;
-  legend: string;
+  text: string;
   renderStroke?: boolean;
+  renderText?: boolean;
   tileText?: string;
 };
 
 export default function LegendItem({
   color = "#0C134F",
-  legend,
+  text,
   renderStroke = false,
-  tileText,
+  renderText = false,
 }: Props) {
   return (
-    <li>
-      <span css={legendStyle}>{legend}</span>
-
-      <svg
-        width="28"
-        height="28"
-        style={{ width: "max-content", height: "max-content" }}
-      >
-        <rect width="100%" height="100%" fill={color} />
-
-        {renderStroke && (
-          <rect
-            width="100%"
-            height="100%"
-            fill="none"
-            stroke="#259d7b"
-            strokeWidth="5"
-            strokeDasharray="5.6 5.6"
-            strokeDashoffset={0}
-          />
-        )}
-        {tileText && (
-          <text
-            css={textStyle}
-            x="14"
-            y="16"
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fill="#027051"
-          >
-            {tileText}
-          </text>
-        )}
+    <li css={itemStyle}>
+      <svg>
+        {tile(color)}
+        {renderText && tileText}
+        {renderStroke && stroke}
       </svg>
+      <span css={legendStyle}>{text}</span>
     </li>
   );
 }
 
-const legendStyle = css`
-  font-size: 1rem;
-  user-select: none;
+const tile = (color: string) => (
+  <rect width="100%" height="100%" fill={color} />
+);
+
+const tileText = (
+  <text
+    x="50%"
+    y="55%"
+    textAnchor="middle"
+    dominantBaseline="middle"
+    fill={Theme.tileColors.tileText}
+  >
+    1
+  </text>
+);
+
+const stroke = (
+  <rect
+    width="100%"
+    height="100%"
+    fill="none"
+    stroke={Theme.tileColors.neighbor}
+    strokeWidth="6"
+    strokeDashoffset={0}
+  />
+);
+
+// STYLES =====================================================================================
+
+const itemStyle = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  color: ${Theme.colors.white_2};
+  list-style: none;
 `;
 
-const textStyle = css`
-  font-size: 20px;
-  font-weight: 600;
+const legendStyle = css`
+  font-size: 10px;
   user-select: none;
 `;

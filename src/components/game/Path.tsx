@@ -5,8 +5,8 @@ import LeftDownTexture from "../../assets/svgs/path/path_left_down.svg?react";
 import LeftUpTexture from "../../assets/svgs/path/path_left_up.svg?react";
 import RightDownTexture from "../../assets/svgs/path/path_right_down.svg?react";
 import RightUpTexture from "../../assets/svgs/path/path_right_up.svg?react";
-import Node from "./Node";
 import { css } from "@emotion/react";
+import { coordinateToPosition } from "../../common/utils";
 
 type Props = {
   coord: Vector2;
@@ -14,10 +14,11 @@ type Props = {
 };
 
 export default function Path({ coord, directions }: Props) {
+  const position = coordinateToPosition(coord);
   return (
-    <Node css={style} coord={coord}>
+    <g css={style} transform={`translate(${position.x}, ${position.y})`}>
       {getTexture(directions)}
-    </Node>
+    </g>
   );
 }
 

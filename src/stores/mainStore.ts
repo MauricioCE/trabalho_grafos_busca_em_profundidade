@@ -10,7 +10,7 @@ export interface GameState {
   ghostCoord: Vector2;
   steps: number;
   maxSteps: number;
-  updateMap: number;
+  updateMap: number; // TODO: Verificar a necessidade desta variável
   path: Vector2[];
 
   setMap: (newMap: GameMap) => void;
@@ -20,7 +20,7 @@ export interface GameState {
   setSteps: (value: number) => void;
   setStepsBy: (value: number) => void;
   setMaxSteps: (value: number) => void;
-  triggerUpdate: (value: number) => void;
+  triggerUpdate: (value: number) => void; // TODO: Verificar a necessidade desta função
   setPath: (path: Vector2[]) => void;
 }
 

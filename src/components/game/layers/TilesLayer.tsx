@@ -6,7 +6,7 @@ function TilesLayer() {
   const map = useGameStore((state) => state.map);
 
   return (
-    <g id="tiles_layer">
+    <g id="tiles_layer" fill="#fff">
       {map.map((row, rowIndex) =>
         row.map((obj, colIndex) => (
           <Tile key={`${rowIndex}-${colIndex}`} coord={obj.coord} />

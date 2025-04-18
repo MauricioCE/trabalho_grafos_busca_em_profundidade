@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import { Vector2 } from "../../common/types";
 import { coordinateToPosition } from "../../common/utils";
+import { Theme } from "../../common/theme";
 
 type Props = {
   coord: Vector2;
@@ -20,7 +21,7 @@ export default function Text({ coord, dist }: Props) {
           y="32"
           textAnchor="middle"
           dominantBaseline="middle"
-          fill="#027051"
+          fill={Theme.tileColors.tileText}
         >
           {text}
         </text>
@@ -33,4 +34,6 @@ const textStyle = css`
   font-size: 24px;
   color: "#027051";
   pointer-events: none;
+  user-select: none;
+  letter-spacing: 3px;
 `;

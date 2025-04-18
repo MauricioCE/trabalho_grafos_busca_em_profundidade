@@ -3,12 +3,15 @@ import { useGameStore } from "../../stores/mainStore";
 import Button from "./Button";
 import Slider from "./Slider";
 import StepsText from "./StepsText";
+import { Theme } from "../../common/theme";
+import { MdKeyboardDoubleArrowLeft } from "react-icons/md";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 type Props = {
   className?: string;
 };
 
-export default function Controls({ ...rest }: Props) {
+export default function StepControls({ ...rest }: Props) {
   const steps = useGameStore((state) => state.steps);
   const maxSteps = useGameStore((state) => state.maxSteps);
   const setSteps = useGameStore((state) => state.setSteps);
@@ -16,26 +19,24 @@ export default function Controls({ ...rest }: Props) {
 
   return (
     <div css={wrapperStyle} {...rest}>
-      <span css={titleStyle}>Steps</span>
       <Slider
+        height={10}
         min={0}
         max={maxSteps}
         step={1}
-        onCallback={setSteps}
+        onValueChange={setSteps}
         value={steps > maxSteps ? maxSteps : steps}
       />
       <div css={buttonGroupStyle}>
         <Button
           css={buttonStyle}
-          iconLocation="start"
-          text="<<"
+          children={<MdKeyboardDoubleArrowLeft />}
           onClick={() => setStepsBy(-1)}
         />
         <StepsText steps={steps} maxSteps={maxSteps} />
         <Button
           css={buttonStyle}
-          iconLocation="end"
-          text=">>"
+          children={<MdKeyboardDoubleArrowRight />}
           onClick={() => setStepsBy(1)}
         />
       </div>
@@ -45,22 +46,18 @@ export default function Controls({ ...rest }: Props) {
 
 const wrapperStyle = css`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   gap: 20px;
   width: 100%;
   height: 100%;
   color: white;
 `;
 
-const titleStyle = css`
-  font-size: 1.3rem;
-  font-weight: 500;
-  font-family: "Roboto Mono";
-`;
-
 const buttonGroupStyle = css`
+  height: 5vh;
+  max-height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,12 +65,14 @@ const buttonGroupStyle = css`
 `;
 
 const buttonStyle = css`
-  min-width: 70px;
-  font-size: 1.2rem;
-  font-weight: 500;
+  height: 100%;
+  padding: 0px 30px;
   color: #1f1f1f;
   border: none;
+  font-size: clamp(1rem, 3vw, 1rem);
+  background-color: ${Theme.colors.brightGreen};
+
   :hover {
-    box-shadow: 0px 0px 20px 2px #15e08863;
+    box-shadow: 0px 0px 20px 2px ${Theme.colors.brightGreenTransp};
   }
 `;

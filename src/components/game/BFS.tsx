@@ -53,11 +53,13 @@ function bfs() {
   let dist = 0;
 
   // Passo 0 - Setar o tile do target como queued
-  currentTile.state = ["queued", "notNeighbor"];
-  queue.push({ tile: currentTile, path: [currentTile.coord] });
+  if (steps >= 1) {
+    currentTile.state = ["queued", "notNeighbor"];
+    queue.push({ tile: currentTile, path: [currentTile.coord] });
+  }
 
   // Próximos passos
-  for (let step = 1; step <= steps; step++) {
+  for (let step = 2; step <= steps; step++) {
     currentTile.state = ["visited", "notNeighbor"];
 
     neighbors.forEach((tile) => {
@@ -124,6 +126,7 @@ function getMaxSteps(coord: Vector2, map: GameMap): number {
       }
     }
   }
+  count = count + 1;
   return clamp(count, 0, count);
 }
 

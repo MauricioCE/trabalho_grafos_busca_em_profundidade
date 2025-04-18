@@ -24,15 +24,12 @@ type TileProps = { coord: Vector2 };
 function Tile({ coord }: TileProps) {
   const map = useGameStore((state) => state.map);
   const setMap = useGameStore((state) => state.setMap);
-  const setSteps = useGameStore((state) => state.setSteps);
-  const steps = useGameStore((state) => state.steps);
-  const setMaxSteps = useGameStore((state) => state.setMaxSteps);
   const triggerUpdate = useGameStore((state) => state.triggerUpdate);
   const data = map[coord.x][coord.y];
   const color =
     data.type === "wall"
-      ? Theme.tileColor["wall"]
-      : Theme.tileColor[data.state[0]];
+      ? Theme.tileColors["wall"]
+      : Theme.tileColors[data.state[0]];
 
   function handleClick() {
     const newType = data.type === "floor" ? "wall" : "floor";
@@ -40,11 +37,6 @@ function Tile({ coord }: TileProps) {
       map[coord.x][coord.y].type = newType;
       setMap([...map]);
       triggerUpdate(1);
-
-      if (newType === "wall") {
-        setSteps(steps - 1);
-        setMaxSteps(steps - 1);
-      }
     }
   }
   const position = coordinateToPosition(coord);
@@ -67,9 +59,8 @@ function Tile({ coord }: TileProps) {
           y="2"
           width="60"
           height="60"
-          stroke="#259d7b"
+          stroke={Theme.tileColors.neighbor}
           strokeWidth="6"
-          strokeDasharray="8 8"
           fill="none"
           transform={`translate(${position.x}, ${position.y})`}
         />

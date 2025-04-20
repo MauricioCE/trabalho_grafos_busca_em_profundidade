@@ -3,29 +3,70 @@ import Button from "./Button";
 import { Theme } from "../../common/theme";
 import { ReactNode } from "react";
 
+type Labels = {
+  center: ReactNode;
+  up: ReactNode;
+  down: ReactNode;
+  left: ReactNode;
+  right: ReactNode;
+};
+
+type Keys = {
+  up: string;
+  down: string;
+  left: string;
+  right: string;
+};
+
 type Props = {
-  centerIcon?: ReactNode;
   className?: string;
   style?: React.CSSProperties;
-  labels: [ReactNode, ReactNode, ReactNode, ReactNode];
+  labels: Labels;
+  keys: Keys;
+  onKeyPressed?: (key: string) => void;
 };
 
 export default function Joystick({
-  centerIcon,
   className,
   style,
   labels,
+  keys,
+  onKeyPressed,
 }: Props) {
   return (
     <div style={style} css={wrapperStyle} className={className}>
-      <Button css={buttonStyle(1, 2)}>{labels[0]}</Button>
-      <Button css={buttonStyle(2, 1)}>{labels[1]}</Button>
-      <Button css={buttonStyle(2, 3)}>{labels[2]}</Button>
-      <Button css={buttonStyle(3, 2)}>{labels[3]}</Button>
-      <div css={centerIconStyle}>{centerIcon}</div>
+      <Button
+        css={buttonStyle(1, 2)}
+        onClick={() => onKeyPressed && onKeyPressed(keys.up)}
+      >
+        {labels.up}
+      </Button>
+      <Button
+        css={buttonStyle(2, 1)}
+        onClick={() => onKeyPressed && onKeyPressed(keys.left)}
+      >
+        {labels.left}
+      </Button>
+      <Button
+        css={buttonStyle(2, 3)}
+        onClick={() => onKeyPressed && onKeyPressed(keys.right)}
+      >
+        {labels.right}
+      </Button>
+      <Button
+        css={buttonStyle(3, 2)}
+        onClick={() => onKeyPressed && onKeyPressed(keys.down)}
+      >
+        {labels.down}
+      </Button>
+      <div css={centerIconStyle}>{labels.center}</div>
     </div>
   );
 }
+
+// STYLES =====================================================================================
+
+const buttonBorderRadius = "5px";
 
 const wrapperStyle = css`
   display: grid;
@@ -38,7 +79,6 @@ const wrapperStyle = css`
   aspect-ratio: 1;
 `;
 
-const radius = "5px";
 const buttonStyle = (row: number, col: number) => css`
   grid-row: ${row};
   grid-column: ${col};
@@ -53,18 +93,18 @@ const buttonStyle = (row: number, col: number) => css`
   border-bottom-left-radius: ${(row === 1 && col === 2) ||
   (row === 2 && col === 3)
     ? "0px"
-    : `${radius}`};
+    : `${buttonBorderRadius}`};
   border-bottom-right-radius: ${(row === 1 && col === 2) ||
   (row === 2 && col === 1)
     ? "0px"
-    : `${radius}`};
+    : `${buttonBorderRadius}`};
   border-top-left-radius: ${(row === 2 && col === 3) || (row === 3 && col === 2)
     ? "0px"
-    : `${radius}`};
+    : `${buttonBorderRadius}`};
   border-top-right-radius: ${(row === 2 && col === 1) ||
   (row === 3 && col === 2)
     ? "0px"
-    : `${radius}`};
+    : `${buttonBorderRadius}`};
 
   :hover {
     box-shadow: 0px 0px 20px 2px ${Theme.colors.brightGreenTransp};

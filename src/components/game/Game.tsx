@@ -6,14 +6,10 @@ import Header from "../ui/Header";
 import { useEffect, useState } from "react";
 import Legend from "../ui/Legend";
 import { Theme } from "../../common/theme";
-import Joystick from "../ui/Joystick";
-import { FaArrowDown } from "react-icons/fa";
-import { FaArrowLeft } from "react-icons/fa";
-import { FaArrowRight } from "react-icons/fa";
-import { FaArrowUp } from "react-icons/fa";
-import PacmanTexture from "../../assets/svgs/pacman.svg?react";
-import GhostTexture from "../../assets/svgs/ghost.svg?react";
 import Footer from "../ui/Footer";
+import PacmanJoystick from "./joysticks/PacmanJoystick";
+import GhostJoystick from "./joysticks/GhostJoystick";
+import InputManager from "./InputManager";
 
 type Orientation = "portrait" | "landscape";
 
@@ -30,22 +26,23 @@ export default function Game() {
 
   return (
     <>
+      <InputManager />
       <div css={backgroundStyle} />
 
       <div id="game-view" css={wrapperStyle}>
         <Header css={headerStyle} title="Breadth First Search (BFS)" />
         <main css={mainContainerStyle(orientation)}>
-          {orientation === "landscape" && leftJoystick}
+          {orientation === "landscape" && <PacmanJoystick />}
           <div css={centerContainerStyle}>
             <Map css={mapStyle(orientation)} stage={stage} />
             <Legend css={legendStyle} />
             <StepControls css={stepControlStyle} />
           </div>
-          {orientation === "landscape" && rightJoystick}
+          {orientation === "landscape" && <GhostJoystick />}
           {orientation === "portrait" && (
             <div css={joystickContainerStyle(orientation)}>
-              {leftJoystick}
-              {rightJoystick}
+              {<PacmanJoystick />}
+              {<GhostJoystick />}
             </div>
           )}
         </main>
@@ -55,23 +52,7 @@ export default function Game() {
   );
 }
 
-// RENDERS =====================================================================================
-
-const leftJoystick = (
-  <Joystick
-    style={{ alignSelf: "center", maxWidth: "150px" }}
-    centerIcon={<PacmanTexture />}
-    labels={["W", "A", "S", "D"]}
-  />
-);
-
-const rightJoystick = (
-  <Joystick
-    style={{ alignSelf: "center", maxWidth: "150px" }}
-    centerIcon={<GhostTexture />}
-    labels={[<FaArrowUp />, <FaArrowLeft />, <FaArrowRight />, <FaArrowDown />]}
-  />
-);
+// FUNCTIONS =====================================================================================
 
 function getScreenOrientation(): Orientation {
   return window.innerWidth > window.innerHeight ? "landscape" : "portrait";
@@ -107,7 +88,8 @@ const backgroundStyle = css`
   width: 100%;
   height: 100%;
   z-index: -100;
-  background: linear-gradient(to top, #060705 60%, #1e2811);
+  background: linear-gradient(to top, #000 10%, #060705, #1e2811);
+  mask-image: radial-gradient();
 `;
 
 const headerStyle = css`

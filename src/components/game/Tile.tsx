@@ -3,7 +3,7 @@ import { Vector2 } from "../../common/types";
 import { useGameStore } from "../../stores/mainStore";
 import { css } from "@emotion/react";
 import { Theme } from "../../common/theme";
-import { coordinateToPosition } from "../../common/utils";
+import { coordinateToPosition } from "../../utils/positionUtils";
 
 export type TileType = "floor" | "wall";
 

@@ -6,7 +6,7 @@ import LeftUpTexture from "../../assets/svgs/path/path_left_up.svg?react";
 import RightDownTexture from "../../assets/svgs/path/path_right_down.svg?react";
 import RightUpTexture from "../../assets/svgs/path/path_right_up.svg?react";
 import { css } from "@emotion/react";
-import { coordinateToPosition } from "../../common/utils";
+import { coordinateToPosition } from "../../utils/positionUtils";
 
 type Props = {
   coord: Vector2;

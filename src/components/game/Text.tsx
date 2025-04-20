@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { Vector2 } from "../../common/types";
-import { coordinateToPosition } from "../../common/utils";
 import { Theme } from "../../common/theme";
+import { coordinateToPosition } from "../../utils/positionUtils";
 
 type Props = {
   coord: Vector2;

@@ -1,6 +1,4 @@
 import { css } from "@emotion/react";
-import Pacman from "./Pacman";
-import Ghost from "./Ghost";
 import { TileData } from "./Tile";
 import { Theme } from "../../common/theme";
 import TilesLayer from "./layers/TilesLayer";
@@ -10,6 +8,8 @@ import { useGameStore } from "../../stores/mainStore";
 import { useMemo } from "react";
 import BFS from "./BFS";
 import { Size, Vector2 } from "../../common/types";
+import Pacman from "./characters/Pacman";
+import Ghost from "./characters/Ghost";
 
 export type GameMap = TileData[][];
 

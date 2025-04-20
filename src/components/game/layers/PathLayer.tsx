@@ -1,8 +1,8 @@
 import { memo, ReactNode } from "react";
 import { Direction, Vector2 } from "../../../common/types";
-import { directionBetween } from "../../../common/utils";
 import { useGameStore } from "../../../stores/mainStore";
 import Path from "../Path";
+import { directionBetween } from "../../../utils/positionUtils";
 
 function PathLayer() {
   const path = useGameStore((state) => state.path);

@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { RefObject, useEffect, useRef, useState } from "react";
-import { clamp } from "../../common/utils";
 import { Theme } from "../../common/theme";
+import { clamp } from "../../utils/generalUtils";
 
 type Props = {
   height?: number;

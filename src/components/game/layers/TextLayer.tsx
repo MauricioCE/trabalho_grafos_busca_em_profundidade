@@ -1,7 +1,7 @@
 import { memo } from "react";
-import { isSamePosition } from "../../../common/utils";
 import Text from "../Text";
 import { useGameStore } from "../../../stores/mainStore";
+import { isSamePosition } from "../../../utils/positionUtils";
 
 function TextLayer() {
   const map = useGameStore((state) => state.map);

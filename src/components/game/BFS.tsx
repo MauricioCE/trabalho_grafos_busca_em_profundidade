@@ -2,9 +2,10 @@ import { memo, useEffect } from "react";
 import { useGameStore } from "../../stores/mainStore";
 import { Vector2 } from "../../common/types";
 import { Theme } from "../../common/theme";
-import { clamp, isSamePosition } from "../../common/utils";
 import { GameMap } from "./Map";
 import { TileData } from "./Tile";
+import { isSamePosition } from "../../utils/positionUtils";
+import { clamp } from "../../utils/generalUtils";
 
 export default memo(function BFS() {
   const map = useGameStore((state) => state.map);

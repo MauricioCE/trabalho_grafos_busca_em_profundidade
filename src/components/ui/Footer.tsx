@@ -12,7 +12,6 @@ export default function Footer() {
 }
 
 const wrapperStyle = css`
-  /* position: absolute; */
   bottom: 0px;
   width: 100%;
   padding: 10px 0;
@@ -20,7 +19,6 @@ const wrapperStyle = css`
   color: #fbfbfb;
   font-size: 0.9rem;
   font-weight: 200;
-  background-color: #0000006e;
   backdrop-filter: blur(4px);
 `;
 

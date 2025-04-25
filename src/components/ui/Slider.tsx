@@ -201,6 +201,7 @@ const railStyle = css`
   position: absolute;
   width: 100%;
   height: 100%;
+  background-color: ${Theme.colors.black_1};
   border: 1px solid ${Theme.colors.brightGreen};
   border-radius: 1000px;
   cursor: pointer;

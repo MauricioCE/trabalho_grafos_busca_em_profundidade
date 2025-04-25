@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { Theme } from "../../common/theme";
 
 export default function Footer() {
   return (
@@ -16,10 +17,10 @@ const wrapperStyle = css`
   width: 100%;
   padding: 10px 0;
   text-align: center;
-  color: #fbfbfb;
+  color: ${Theme.colors.white_2};
   font-size: 0.9rem;
   font-weight: 200;
-  backdrop-filter: blur(4px);
+  background-color: #00000047;
 `;
 
 const textContainer = css`
@@ -31,6 +32,6 @@ const textContainer = css`
 const linkStyle = css`
   width: 100%;
   height: 100%;
-  color: #fbfbfb;
+  color: ${Theme.colors.white_2};
   font-weight: 600;
 `;

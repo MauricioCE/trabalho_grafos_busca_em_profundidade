@@ -10,6 +10,8 @@ import Footer from "../ui/Footer";
 import PacmanJoystick from "./joysticks/PacmanJoystick";
 import GhostJoystick from "./joysticks/GhostJoystick";
 import InputManager from "./InputManager";
+import backgroundImage from "../../assets/images/background.png";
+import { isMobileDevice } from "../../utils/generalUtils";
 
 type Orientation = "portrait" | "landscape";
 
@@ -21,6 +23,7 @@ export default function Game() {
   const [orientation, setOrientation] = useState<Orientation>(
     getScreenOrientation()
   );
+  const isMobile = isMobileDevice();
 
   useOrientation(orientation, setOrientation);
 
@@ -32,13 +35,13 @@ export default function Game() {
       <div id="game-view" css={wrapperStyle}>
         <Header css={headerStyle} title="Breadth First Search (BFS)" />
         <main css={mainContainerStyle(orientation)}>
-          {orientation === "landscape" && <PacmanJoystick />}
+          {orientation === "landscape" && isMobile && <PacmanJoystick />}
           <div css={centerContainerStyle}>
             <Map css={mapStyle(orientation)} stage={stage} />
             <Legend css={legendStyle} />
             <StepControls css={stepControlStyle} />
           </div>
-          {orientation === "landscape" && <GhostJoystick />}
+          {orientation === "landscape" && isMobile && <GhostJoystick />}
           {orientation === "portrait" && (
             <div css={joystickContainerStyle(orientation)}>
               {<PacmanJoystick />}
@@ -88,8 +91,12 @@ const backgroundStyle = css`
   width: 100%;
   height: 100%;
   z-index: -100;
-  background: linear-gradient(to top, #000 10%, #060705, #1e2811);
-  mask-image: radial-gradient();
+  background-image: url(${backgroundImage});
+  background-size: 200px auto;
+  opacity: 0.7;
+
+  /* background: linear-gradient(to top, #00000010, #06070572, #1e2811); */
+  /* mask-image: radial-gradient(); */
 `;
 
 const headerStyle = css`

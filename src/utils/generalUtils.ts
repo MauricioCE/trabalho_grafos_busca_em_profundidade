@@ -1,5 +1,5 @@
 // Diz se o dispositivo do usuário é ou não mobile
-export function isMobile() {
+export function isMobileDevice() {
   return /Mobi|Android|iPhone/i.test(navigator.userAgent);
 }
 
